@@ -4,7 +4,7 @@ import com.example.enaa_skills.dtos.CompetenceDTO;
 import com.example.enaa_skills.dtos.SubCompetenceDTO;
 import com.example.enaa_skills.entities.Competence;
 import com.example.enaa_skills.services.CompetenceService;
-import com.example.enaa_skills.services.ExceleServices;
+import com.example.enaa_skills.services.ExcelServices;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +18,9 @@ import java.util.List;
 @RequestMapping("/competence")
 public class CompetenceController {
     private final CompetenceService service;
-    private final ExceleServices excel;
+    private final ExcelServices excel;
 
-    public CompetenceController(CompetenceService service, ExceleServices excel) {
+    public CompetenceController(CompetenceService service, ExcelServices excel) {
         this.service = service;
         this.excel = excel;
     }
