@@ -76,8 +76,15 @@ public class SubCompetenceService {
         checkAndUpdateCompetenceStatus(competenceId);
     }
 
+    public boolean isAcquired(Long competenceId) {
+        List<SubCompetence> subCompetenceList = repository.findAllByCompetence_Id(competenceId);
+        return subCompetenceList != null &&
+                !subCompetenceList.isEmpty() &&
+                subCompetenceList.stream().allMatch(SubCompetence::isValidated);
+    }
+
     private void checkAndUpdateCompetenceStatus(Long competenceId) {
-        boolean allValidated = competenceService.isAcquired(competenceId);
+        boolean allValidated = isAcquired(competenceId);
 
         Competence competence = competenceRepository.findById(competenceId)
                 .orElseThrow(() -> new RuntimeException("Competence not found"));
