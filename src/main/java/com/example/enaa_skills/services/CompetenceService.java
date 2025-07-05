@@ -52,6 +52,12 @@ public class CompetenceService {
         return mapper.toDTOs(competenceList);
     }
 
+    public List<Competence> getAll2(){
+        List<Competence> competenceList = repository.findAll();
+
+        return competenceList;
+    }
+
     public List<SubCompetenceDTO> getByCompetenceById(Long id){
         List<SubCompetence> subCompetenceList = subCompetenceRepository.findAllByCompetence_Id(id);
         List<SubCompetenceDTO> subCompetenceDTOList = subCompetenceMapper.toDTOs(subCompetenceList);
@@ -62,10 +68,10 @@ public class CompetenceService {
         repository.deleteById(id);
     }
 
-    public boolean isAcquired(Long competenceId) {
-        List<SubCompetence> subCompetenceList = subCompetenceRepository.findAllByCompetence_Id(competenceId);
-        return subCompetenceList != null &&
-                !subCompetenceList.isEmpty() &&
-                subCompetenceList.stream().allMatch(SubCompetence::isValidated);
-    }
+//    public boolean isAcquired(Long competenceId) {
+//        List<SubCompetence> subCompetenceList = subCompetenceRepository.findAllByCompetence_Id(competenceId);
+//        return subCompetenceList != null &&
+//                !subCompetenceList.isEmpty() &&
+//                subCompetenceList.stream().allMatch(SubCompetence::isValidated);
+//    }
 }
