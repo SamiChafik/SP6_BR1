@@ -1,0 +1,41 @@
+services:
+
+  app:
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: enaa-skills
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/enaaskills
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456789
+    networks:
+      - app
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: enaaskills
+#      MYSQL_USER: appuser
+#      MYSQL_PASSWORD: apppassword
+#      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3307:3306"
+    networks:
+      - app
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+networks:
+  app:
+    driver: bridge
+volumes:
+  db_data:
